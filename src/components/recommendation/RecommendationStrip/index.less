@@ -1,0 +1,125 @@
+.recommendation-strip {
+  margin-top: 32rpx;
+
+  &-title {
+    font-size: 28rpx;
+    font-weight: bold;
+    color: #1A1A2E;
+    padding: 24rpx 32rpx 16rpx;
+    text-align: center;
+    position: relative;
+
+    &::before,
+    &::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      width: 60rpx;
+      height: 1px;
+      background: #E8E8E8;
+    }
+
+    &::before { left: 32rpx; }
+    &::after { right: 32rpx; }
+  }
+
+  &-scroll {
+    padding: 0 32rpx;
+  }
+
+  &-inner {
+    display: flex;
+    gap: 16rpx;
+
+    &--centered {
+      justify-content: center;
+    }
+  }
+}
+
+.recommend-card {
+  width: 160rpx;
+  flex-shrink: 0;
+
+  &-cover {
+    width: 160rpx;
+    height: 160rpx;
+    border-radius: 8rpx;
+    background: #F5F5F5;
+  }
+
+  &-cover-placeholder {
+    width: 160rpx;
+    height: 160rpx;
+    border-radius: 8rpx;
+    background: #F5F5F5;
+  }
+
+  &-title {
+    font-size: 26rpx;
+    font-weight: bold;
+    color: #1A1A2E;
+    margin-top: 12rpx;
+    max-width: 160rpx;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    display: block;
+  }
+
+  &-summary {
+    font-size: 24rpx;
+    color: #8C8C8C;
+    margin-top: 6rpx;
+    max-width: 160rpx;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    display: block;
+  }
+
+  &-likes {
+    display: flex;
+    align-items: center;
+    gap: 6rpx;
+    margin-top: 8rpx;
+  }
+
+  &-like-icon {
+    font-size: 22rpx;
+    color: #BFBFBF;
+  }
+
+  &-like-count {
+    font-size: 22rpx;
+    color: #595959;
+  }
+
+  &-skeleton {
+    width: 160rpx;
+    flex-shrink: 0;
+
+    &-img {
+      width: 160rpx;
+      height: 160rpx;
+      border-radius: 8rpx;
+      background: #F5F5F5;
+    }
+
+    &-line-1 {
+      width: 140rpx;
+      height: 24rpx;
+      background: #F5F5F5;
+      margin-top: 12rpx;
+      border-radius: 4rpx;
+    }
+
+    &-line-2 {
+      width: 100rpx;
+      height: 22rpx;
+      background: #F5F5F5;
+      margin-top: 6rpx;
+      border-radius: 4rpx;
+    }
+  }
+}

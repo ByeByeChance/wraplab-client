@@ -1,0 +1,53 @@
+.store-map-page {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background-color: #F5F5F5;
+}
+
+.marker-popup-card {
+  position: absolute;
+  bottom: 140rpx;
+  left: 16rpx;
+  right: 16rpx;
+  z-index: 100;
+  animation: slideUp 250ms ease-out;
+}
+
+@keyframes slideUp {
+  from { transform: translateY(100%); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+.bottom-drawer {
+  flex-shrink: 0;
+  background-color: #FFFFFF;
+  border-radius: 24rpx 24rpx 0 0;
+  overflow: hidden;
+  transition: max-height 300ms ease;
+  max-height: 140rpx;
+  padding-bottom: env(safe-area-inset-bottom);
+
+  &.expanded {
+    max-height: 50vh;
+  }
+}
+
+.drawer-handle {
+  display: flex;
+  justify-content: center;
+  padding-top: 12rpx;
+  padding-bottom: 8rpx;
+}
+
+.drawer-handle-bar {
+  width: 36px;
+  height: 5px;
+  border-radius: 3px;
+  background-color: #D9D9D9;
+}
+
+.drawer-list {
+  max-height: calc(50vh - 60rpx);
+  overflow-y: auto;
+}

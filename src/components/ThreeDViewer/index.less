@@ -1,0 +1,136 @@
+.three-d-viewer {
+  width: 100%;
+  position: relative;
+  background: #0A0A1A;
+  box-shadow: inset 0 2rpx 12rpx rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+}
+
+.three-d-webview {
+  width: 100%;
+  height: 100%;
+}
+
+/* Empty / No Model */
+.three-d-viewer--empty,
+.three-d-viewer--loading,
+.three-d-viewer--error {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.three-d-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 48rpx;
+}
+
+.three-d-placeholder-icon {
+  font-size: 80rpx;
+  margin-bottom: 16rpx;
+  opacity: 0.6;
+}
+
+.three-d-placeholder-text {
+  font-size: 28rpx;
+  color: #8C8C8C;
+  margin-bottom: 8rpx;
+}
+
+.three-d-placeholder-sub {
+  font-size: 24rpx;
+  color: #BFBFBF;
+}
+
+/* Loading */
+.three-d-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 48rpx;
+}
+
+.three-d-spinner {
+  width: 48rpx;
+  height: 48rpx;
+  border: 4rpx solid rgba(255, 255, 255, 0.15);
+  border-top-color: #1A1A2E;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 16rpx;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.three-d-loading-text {
+  font-size: 26rpx;
+  color: #8C8C8C;
+  margin-bottom: 16rpx;
+}
+
+.three-d-progress-bar {
+  width: 80%;
+  height: 6rpx;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 3rpx;
+  overflow: hidden;
+}
+
+.three-d-progress-fill {
+  height: 100%;
+  background: #1A1A2E;
+  border-radius: 3rpx;
+  transition: width 0.3s ease;
+}
+
+/* Error */
+.three-d-error {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 48rpx;
+}
+
+.three-d-error-icon {
+  width: 64rpx;
+  height: 64rpx;
+  border-radius: 50%;
+  background: #FF4D4F;
+  color: #FFFFFF;
+  font-size: 36rpx;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16rpx;
+}
+
+.three-d-error-text {
+  font-size: 26rpx;
+  color: #8C8C8C;
+  margin-bottom: 24rpx;
+}
+
+.three-d-error-actions {
+  display: flex;
+  gap: 16rpx;
+}
+
+.three-d-error-btn {
+  padding: 12rpx 32rpx;
+  border-radius: 8rpx;
+  background: #1A1A2E;
+  color: #FFFFFF;
+  font-size: 26rpx;
+  border: none;
+}
+
+.three-d-error-btn--secondary {
+  background: transparent;
+  border: 2rpx solid #8C8C8C;
+  color: #8C8C8C;
+}

@@ -1,0 +1,149 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 1200" font-family="PingFang SC, sans-serif">
+  <defs>
+    <linearGradient id="blue" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#3b82f6"/>
+      <stop offset="100%" style="stop-color:#2563eb"/>
+    </linearGradient>
+    <linearGradient id="purple" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#8b5cf6"/>
+      <stop offset="100%" style="stop-color:#7c3aed"/>
+    </linearGradient>
+    <linearGradient id="green" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#10b981"/>
+      <stop offset="100%" style="stop-color:#059669"/>
+    </linearGradient>
+    <marker id="arrow" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#64748b"/>
+    </marker>
+    <marker id="arrow-blue" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#3b82f6"/>
+    </marker>
+  </defs>
+
+  <rect width="900" height="1200" fill="#f8fafc" rx="12"/>
+
+  <!-- Title -->
+  <text x="450" y="40" text-anchor="middle" font-size="18" font-weight="bold" fill="#1e293b">wraplab-client 用户操作流程图</text>
+  <text x="450" y="62" text-anchor="middle" font-size="13" fill="#64748b">登录 → 选车 → 改色 → 报价 完整链路</text>
+
+  <!-- Start -->
+  <rect x="350" y="85" width="200" height="40" rx="20" fill="#1e293b"/>
+  <text x="450" y="111" text-anchor="middle" font-size="14" fill="#fff" font-weight="bold">打开小程序</text>
+
+  <!-- Arrow -->
+  <line x1="450" y1="125" x2="450" y2="155" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- Auth decision -->
+  <polygon points="450,160 530,200 450,240 370,200" fill="#fff" stroke="#3b82f6" stroke-width="2"/>
+  <text x="450" y="198" text-anchor="middle" font-size="13" fill="#3b82f6" font-weight="bold">已登录？</text>
+
+  <!-- Yes branch -->
+  <line x1="530" y1="200" x2="600" y2="200" stroke="#10b981" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="565" y="193" text-anchor="middle" font-size="11" fill="#10b981">是</text>
+  <rect x="605" y="180" width="160" height="40" rx="8" fill="url(#green)"/>
+  <text x="685" y="206" text-anchor="middle" font-size="14" fill="#fff" font-weight="bold">首页</text>
+
+  <!-- No branch - Login -->
+  <line x1="370" y1="200" x2="280" y2="200" stroke="#ef4444" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="325" y="193" text-anchor="middle" font-size="11" fill="#ef4444">否</text>
+  <rect x="120" y="180" width="155" height="40" rx="8" fill="#ef4444"/>
+  <text x="197" y="206" text-anchor="middle" font-size="14" fill="#fff" font-weight="bold">登录页</text>
+
+  <!-- Login → Home -->
+  <line x1="197" y1="220" x2="197" y2="280" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="197" y1="280" x2="685" y2="280" stroke="#64748b" stroke-width="2"/>
+  <line x1="685" y1="280" x2="685" y2="230" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="440" y="275" text-anchor="middle" font-size="11" fill="#64748b">微信授权成功</text>
+
+  <!-- Home actions -->
+  <line x1="685" y1="220" x2="685" y2="315" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- Home content -->
+  <rect x="585" y="320" width="200" height="50" rx="8" fill="#f1f5f9" stroke="#cbd5e1" stroke-width="1"/>
+  <text x="685" y="342" text-anchor="middle" font-size="12" fill="#475569">🏠 首页</text>
+  <text x="685" y="360" text-anchor="middle" font-size="11" fill="#64748b">热门方案 / 品牌入口 / 开始设计</text>
+
+  <!-- Branch from home -->
+  <line x1="585" y1="345" x2="450" y2="345" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="520" y="338" text-anchor="middle" font-size="11" fill="#3b82f6">选择车型</text>
+
+  <!-- Car Select -->
+  <rect x="280" y="325" width="165" height="50" rx="8" fill="url(#blue)"/>
+  <text x="362" y="347" text-anchor="middle" font-size="13" fill="#fff" font-weight="bold">车型选择</text>
+  <text x="362" y="365" text-anchor="middle" font-size="11" fill="#bfdbfe">品牌 → 车系 → 年款/型号</text>
+
+  <!-- Select → Design -->
+  <line x1="362" y1="375" x2="362" y2="420" stroke="#3b82f6" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="372" y="405" text-anchor="middle" font-size="11" fill="#3b82f6">选定车型</text>
+
+  <!-- Design Workbench -->
+  <rect x="180" y="425" width="365" height="80" rx="8" fill="url(#purple)"/>
+  <text x="362" y="450" text-anchor="middle" font-size="14" fill="#fff" font-weight="bold">🎨 改色工作台</text>
+  <text x="362" y="470" text-anchor="middle" font-size="12" fill="#ddd6fe">3D 模型 (WebView + Three.js)</text>
+  <text x="362" y="490" text-anchor="middle" font-size="12" fill="#ddd6fe">底部色卡栏 (品牌Tab + 颜色色块)</text>
+
+  <!-- 3D Load -->
+  <line x1="545" y1="465" x2="620" y2="465" stroke="#8b5cf6" stroke-width="2"/>
+  <text x="582" y="458" text-anchor="middle" font-size="11" fill="#7c3aed">3D加载</text>
+  <rect x="625" y="440" width="160" height="50" rx="8" fill="#faf5ff" stroke="#d8b4fe" stroke-width="1"/>
+  <text x="705" y="460" text-anchor="middle" font-size="11" fill="#7c3aed">加载成功 → 模型预览</text>
+  <text x="705" y="478" text-anchor="middle" font-size="11" fill="#f43f5e">10s超时 → 缩略图降级</text>
+
+  <!-- Design actions -->
+  <line x1="362" y1="505" x2="362" y2="540" stroke="#8b5cf6" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- Color bar -->
+  <rect x="220" y="545" width="285" height="40" rx="8" fill="#1e1e2e" stroke="#334155" stroke-width="1"/>
+  <text x="362" y="563" text-anchor="middle" font-size="12" fill="#a1a1aa">⬤ 3M品牌</text>
+  <text x="362" y="578" text-anchor="middle" font-size="11" fill="#52525b">色块1  色块2  色块3  色块4  色块5 ...</text>
+
+  <!-- Color select -->
+  <line x1="362" y1="585" x2="362" y2="615" stroke="#8b5cf6" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="372" y="605" text-anchor="middle" font-size="11" fill="#8b5cf6">点击色块</text>
+
+  <!-- Apply color feedback -->
+  <rect x="220" y="620" width="285" height="35" rx="8" fill="#f0fdf4" stroke="#86efac" stroke-width="1"/>
+  <text x="362" y="643" text-anchor="middle" font-size="12" fill="#16a34a">✅ 颜色即时应用到 3D 模型</text>
+
+  <!-- Quote -->
+  <line x1="450" y1="620" x2="680" y2="620" stroke="#64748b" stroke-width="2"/>
+  <line x1="680" y1="620" x2="680" y2="690" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="665" y="613" text-anchor="middle" font-size="11" fill="#10b981">客户满意</text>
+
+  <rect x="570" y="695" width="220" height="40" rx="8" fill="url(#green)"/>
+  <text x="680" y="720" text-anchor="middle" font-size="14" fill="#fff" font-weight="bold">📄 生成报价单</text>
+
+  <!-- Quote form -->
+  <line x1="680" y1="735" x2="680" y2="770" stroke="#10b981" stroke-width="2" marker-end="url(#arrow)"/>
+  <rect x="530" y="775" width="300" height="80" rx="8" fill="#f0fdf4" stroke="#86efac" stroke-width="1"/>
+  <text x="680" y="797" text-anchor="middle" font-size="12" fill="#166534">报价详情</text>
+  <text x="680" y="815" text-anchor="middle" font-size="11" fill="#166534">车型: 宝马3系 2024  颜色: 哑光黑</text>
+  <text x="680" y="835" text-anchor="middle" font-size="11" fill="#166534">客户: [姓名]  [电话]  总价: ¥XXXX</text>
+
+  <!-- Contact CS -->
+  <line x1="680" y1="855" x2="680" y2="885" stroke="#10b981" stroke-width="2" marker-end="url(#arrow)"/>
+  <rect x="570" y="890" width="220" height="40" rx="20" fill="#059669"/>
+  <text x="680" y="916" text-anchor="middle" font-size="14" fill="#fff" font-weight="bold">📞 联系客服报价</text>
+
+  <!-- End -->
+  <line x1="680" y1="930" x2="680" y2="960" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)"/>
+  <rect x="620" y="965" width="120" height="36" rx="18" fill="#1e293b"/>
+  <text x="680" y="989" text-anchor="middle" font-size="13" fill="#fff">完成</text>
+
+  <!-- Legend -->
+  <rect x="30" y="1020" width="840" height="150" rx="8" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1"/>
+  <text x="50" y="1045" font-size="13" font-weight="bold" fill="#1e293b">图例</text>
+  <rect x="50" y="1055" width="16" height="16" rx="4" fill="#3b82f6"/>
+  <text x="75" y="1068" font-size="12" fill="#475569">操作步骤</text>
+  <polygon points="180,1063 210,1063 195,1078" fill="#3b82f6"/>
+  <text x="220" y="1068" font-size="12" fill="#475569">判断/分支</text>
+  <rect x="320" y="1055" width="16" height="16" rx="8" fill="#1e293b"/>
+  <text x="345" y="1068" font-size="12" fill="#475569">开始/结束</text>
+  <rect x="460" y="1055" width="16" height="16" rx="4" fill="#f0fdf4" stroke="#86efac"/>
+  <text x="485" y="1068" font-size="12" fill="#475569">状态反馈</text>
+  <rect x="600" y="1055" width="16" height="16" rx="4" fill="#1e1e2e" stroke="#334155"/>
+  <text x="625" y="1068" font-size="12" fill="#475569">底部交互区域</text>
+  <line x1="50" y1="1100" x2="120" y2="1100" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="130" y="1104" font-size="12" fill="#475569">流程方向</text>
+  <text x="50" y="1140" font-size="11" fill="#94a3b8">分支说明：🎨 改色工作台是核心页面，其他页面为辅助流程</text>
+</svg>

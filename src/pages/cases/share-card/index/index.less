@@ -1,0 +1,72 @@
+.share-card-page {
+  min-height: 100vh;
+  background: #F5F5F5;
+  display: flex;
+  flex-direction: column;
+}
+
+.share-card-preview {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24rpx;
+}
+
+.share-card-preview-image {
+  width: 100%;
+  border-radius: 12rpx;
+  box-shadow: 0 4rpx 16rpx rgba(0, 0, 0, 0.1);
+}
+
+.share-card-preview-skeleton {
+  width: 100%;
+  border-radius: 12rpx;
+  overflow: hidden;
+}
+
+.share-card-loading-text {
+  font-size: 28rpx;
+  color: #595959;
+  text-align: center;
+  padding: 32rpx 0;
+  display: block;
+}
+
+.share-card-actions {
+  padding: 0 32rpx 32rpx;
+  display: flex;
+  flex-direction: column;
+  gap: 16rpx;
+}
+
+.share-card-error-actions {
+  padding: 0 32rpx;
+}
+
+.share-card-btn {
+  width: 100%;
+  height: 88rpx;
+  border-radius: 12rpx;
+  font-size: 28rpx;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+}
+
+.share-card-btn.primary {
+  background: linear-gradient(135deg, #0F3460, #16213E);
+  color: #FFFFFF;
+}
+
+.share-card-btn.primary.saved {
+  background: #52C41A;
+}
+
+.share-card-btn.secondary {
+  background: #FFFFFF;
+  color: #0F3460;
+  border: 1px solid #E8E8E8;
+}

@@ -1,0 +1,73 @@
+.ranking-tab {
+  background: #FFFFFF;
+}
+
+.ranking-period-scroll {
+  white-space: nowrap;
+  padding: 16rpx 32rpx;
+}
+
+.ranking-period-row {
+  display: flex;
+  gap: 16rpx;
+}
+
+.ranking-period-capsule {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 56rpx;
+  padding: 0 24rpx;
+  border-radius: 28rpx;
+  background: #F5F5F5;
+  border: 1px solid #E8E8E8;
+  transition: all 200ms ease-out;
+}
+
+.ranking-period-capsule.active {
+  background: linear-gradient(135deg, #0F3460, #16213E);
+  border-color: transparent;
+}
+
+.ranking-period-label {
+  font-size: 24rpx;
+  color: #595959;
+}
+
+.ranking-period-capsule.active .ranking-period-label {
+  color: #FFFFFF;
+}
+
+.ranking-type-row {
+  display: flex;
+  padding: 16rpx 32rpx;
+  gap: 32rpx;
+}
+
+.ranking-type-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  cursor: pointer;
+}
+
+.ranking-type-label {
+  font-size: 26rpx;
+  color: #8C8C8C;
+  transition: color 200ms ease-out;
+}
+
+.ranking-type-item.active .ranking-type-label {
+  font-weight: bold;
+  color: #0F3460;
+}
+
+.ranking-type-indicator {
+  width: 40rpx;
+  height: 3rpx;
+  background: #0F3460;
+  border-radius: 2rpx;
+  margin-top: 4rpx;
+  transition: all 300ms ease-out;
+}

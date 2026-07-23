@@ -1,0 +1,94 @@
+.select-list {
+  background: #FFFFFF;
+}
+
+/* 品牌列表项 */
+.select-list-item {
+  display: flex;
+  align-items: center;
+  padding: 16rpx 32rpx;
+  background: #FFFFFF;
+  border-bottom: 1px solid #F0F0F0;
+  transition: background 200ms ease;
+}
+
+.select-list-item:active {
+  background: #F0F0F0;
+}
+
+.select-list-item--brand {
+  height: 112rpx;
+}
+
+.select-list-item--series,
+.select-list-item--model {
+  height: 100rpx;
+}
+
+.select-list-logo {
+  width: 64rpx;
+  height: 64rpx;
+  border-radius: 12rpx;
+  margin-right: 16rpx;
+  flex-shrink: 0;
+  background: #F5F5F5;
+}
+
+.select-list-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.select-list-row {
+  display: flex;
+  align-items: center;
+  gap: 12rpx;
+}
+
+.select-list-name {
+  font-size: 28rpx;
+  font-weight: 500;
+  color: #1A1A2E;
+}
+
+.select-list-year-range {
+  font-size: 22rpx;
+  color: #8C8C8C;
+}
+
+.select-list-sub {
+  font-size: 24rpx;
+  color: #8C8C8C;
+  margin-top: 4rpx;
+}
+
+.select-list-arrow {
+  font-size: 20rpx;
+  color: #BFBFBF;
+  flex-shrink: 0;
+}
+
+.select-list-tags {
+  display: flex;
+  align-items: center;
+  gap: 8rpx;
+  margin-top: 4rpx;
+}
+
+.select-list-tag {
+  font-size: 24rpx;
+  display: inline-flex;
+  align-items: center;
+  padding: 4rpx 12rpx;
+  border-radius: 8rpx;
+}
+
+.select-list-tag--year {
+  background: #F0F0F0;
+  color: #595959;
+}
+
+.select-list-tag--type {
+  background: #E6F7FF;
+  color: #1890FF;
+}

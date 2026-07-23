@@ -1,0 +1,172 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 900" font-family="PingFang SC, sans-serif">
+  <defs>
+    <linearGradient id="blue" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#3b82f6;stop-opacity:0.1"/>
+      <stop offset="100%" style="stop-color:#2563eb;stop-opacity:0.05"/>
+    </linearGradient>
+    <marker id="arrow" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#94a3b8"/>
+    </marker>
+    <marker id="arrow-blue" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#3b82f6"/>
+    </marker>
+    <marker id="arrow-green" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#10b981"/>
+    </marker>
+  </defs>
+
+  <rect width="900" height="900" fill="#f8fafc" rx="12"/>
+
+  <!-- Title -->
+  <text x="450" y="35" text-anchor="middle" font-size="18" font-weight="bold" fill="#1e293b">3D 改色交互时序图</text>
+  <text x="450" y="55" text-anchor="middle" font-size="12" fill="#64748b">Taro 小程序 ↔ WebView ↔ Three.js ↔ API/OSS 通信</text>
+
+  <!-- Participant columns -->
+  <!-- User -->
+  <rect x="30" y="70" width="120" height="30" rx="6" fill="#1e293b"/>
+  <text x="90" y="90" text-anchor="middle" font-size="12" fill="#fff" font-weight="bold">👤 用户</text>
+  <line x1="90" y1="100" x2="90" y2="850" stroke="#1e293b" stroke-width="1.5" stroke-dasharray="4,3"/>
+
+  <!-- Taro -->
+  <rect x="200" y="70" width="140" height="30" rx="6" fill="url(#blue)" stroke="#3b82f6" stroke-width="1"/>
+  <text x="270" y="90" text-anchor="middle" font-size="12" fill="#1e40af" font-weight="bold">Taro 小程序</text>
+  <line x1="270" y1="100" x2="270" y2="850" stroke="#3b82f6" stroke-width="1.5" stroke-dasharray="4,3"/>
+
+  <!-- WebView -->
+  <rect x="390" y="70" width="140" height="30" rx="6" fill="#faf5ff" stroke="#8b5cf6" stroke-width="1"/>
+  <text x="460" y="90" text-anchor="middle" font-size="12" fill="#5b21b6" font-weight="bold">WebView (H5)</text>
+  <line x1="460" y1="100" x2="460" y2="850" stroke="#8b5cf6" stroke-width="1.5" stroke-dasharray="4,3"/>
+
+  <!-- Three.js -->
+  <rect x="580" y="70" width="140" height="30" rx="6" fill="#fef3c7" stroke="#f59e0b" stroke-width="1"/>
+  <text x="650" y="90" text-anchor="middle" font-size="12" fill="#b45309" font-weight="bold">Three.js 渲染</text>
+  <line x1="650" y1="100" x2="650" y2="850" stroke="#f59e0b" stroke-width="1.5" stroke-dasharray="4,3"/>
+
+  <!-- API/OSS -->
+  <rect x="770" y="70" width="100" height="30" rx="6" fill="#f0fdf4" stroke="#10b981" stroke-width="1"/>
+  <text x="820" y="90" text-anchor="middle" font-size="12" fill="#166534" font-weight="bold">API/OSS</text>
+  <line x1="820" y1="100" x2="820" y2="850" stroke="#10b981" stroke-width="1.5" stroke-dasharray="4,3"/>
+
+  <!-- Section: Model Load -->
+  <text x="450" y="125" text-anchor="middle" font-size="11" fill="#64748b" font-style="italic">3D 模型加载阶段</text>
+
+  <!-- User→Taro: 选车型 -->
+  <line x1="90" y1="145" x2="260" y2="145" stroke="#3b82f6" stroke-width="2" marker-end="url(#arrow-blue)"/>
+  <text x="175" y="140" text-anchor="middle" font-size="10" fill="#3b82f6">选车型</text>
+
+  <!-- Taro→API: GET model -->
+  <line x1="270" y1="165" x2="810" y2="165" stroke="#3b82f6" stroke-width="1.5" marker-end="url(#arrow-blue)"/>
+  <text x="540" y="160" text-anchor="middle" font-size="10" fill="#3b82f6">GET /vehicles/models/{id}</text>
+
+  <!-- API→Taro: response -->
+  <line x1="810" y1="185" x2="280" y2="185" stroke="#10b981" stroke-width="1.5" marker-end="url(#arrow-green)"/>
+  <text x="545" y="180" text-anchor="middle" font-size="10" fill="#10b981">返回 model (含 3d_model_url)</text>
+
+  <!-- Taro→WebView: init -->
+  <line x1="280" y1="210" x2="450" y2="210" stroke="#3b82f6" stroke-width="2" marker-end="url(#arrow-blue)"/>
+  <text x="365" y="205" text-anchor="middle" font-size="10" fill="#3b82f6">初始化 WebView</text>
+
+  <!-- WebView→Three.js: loadModel -->
+  <line x1="460" y1="235" x2="640" y2="235" stroke="#8b5cf6" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <text x="550" y="230" text-anchor="middle" font-size="10" fill="#7c3aed">postMessage loadModel</text>
+
+  <!-- Three.js→OSS: GET glTF -->
+  <line x1="650" y1="260" x2="810" y2="260" stroke="#f59e0b" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <text x="730" y="255" text-anchor="middle" font-size="10" fill="#b45309">GET glTF/GLB</text>
+
+  <!-- OSS→Three.js -->
+  <line x1="810" y1="280" x2="660" y2="280" stroke="#10b981" stroke-width="1.5" marker-end="url(#arrow-green)"/>
+  <text x="735" y="275" text-anchor="middle" font-size="10" fill="#10b981">返回模型数据</text>
+
+  <!-- Three.js renders -->
+  <rect x="580" y="295" width="140" height="25" rx="5" fill="#fef3c7" stroke="#f59e0b" stroke-width="1"/>
+  <text x="650" y="312" text-anchor="middle" font-size="11" fill="#b45309">渲染场景 + 光照</text>
+
+  <!-- Three.js→WebView: loaded -->
+  <line x1="640" y1="340" x2="470" y2="340" stroke="#10b981" stroke-width="1.5" marker-end="url(#arrow-green)"/>
+  <text x="555" y="335" text-anchor="middle" font-size="10" fill="#10b981">modelLoaded { success }</text>
+
+  <!-- WebView→Taro: loaded -->
+  <line x1="450" y1="360" x2="280" y2="360" stroke="#10b981" stroke-width="1.5" marker-end="url(#arrow-green)"/>
+  <text x="365" y="355" text-anchor="middle" font-size="10" fill="#10b981">onMessage: modelLoaded</text>
+
+  <!-- Taro→User: show -->
+  <line x1="260" y1="380" x2="100" y2="380" stroke="#10b981" stroke-width="2" marker-end="url(#arrow-green)"/>
+  <text x="180" y="375" text-anchor="middle" font-size="10" fill="#10b981">显示 3D 模型</text>
+
+  <!-- Divider -->
+  <line x1="40" y1="410" x2="860" y2="410" stroke="#e2e8f0" stroke-width="1" stroke-dasharray="6,3"/>
+  <text x="450" y="425" text-anchor="middle" font-size="11" fill="#64748b" font-style="italic">改色交互阶段</text>
+
+  <!-- Taro→API: GET colors -->
+  <line x1="270" y1="445" x2="810" y2="445" stroke="#3b82f6" stroke-width="1.5" marker-end="url(#arrow-blue)"/>
+  <text x="540" y="440" text-anchor="middle" font-size="10" fill="#3b82f6">GET /colors/swatches?brandId=X</text>
+
+  <!-- API→Taro -->
+  <line x1="810" y1="465" x2="280" y2="465" stroke="#10b981" stroke-width="1.5" marker-end="url(#arrow-green)"/>
+  <text x="545" y="460" text-anchor="middle" font-size="10" fill="#10b981">返回颜色列表</text>
+
+  <!-- Taro→User: show colors -->
+  <line x1="270" y1="485" x2="100" y2="485" stroke="#3b82f6" stroke-width="1.5" marker-end="url(#arrow-blue)"/>
+  <text x="185" y="480" text-anchor="middle" font-size="10" fill="#3b82f6">展示色卡</text>
+
+  <!-- User→Taro: click color -->
+  <line x1="100" y1="510" x2="260" y2="510" stroke="#3b82f6" stroke-width="2" marker-end="url(#arrow-blue)"/>
+  <text x="180" y="505" text-anchor="middle" font-size="10" fill="#3b82f6">点击色块 #FF0000</text>
+
+  <!-- Taro→WebView: selectColor -->
+  <line x1="280" y1="535" x2="450" y2="535" stroke="#3b82f6" stroke-width="2" marker-end="url(#arrow-blue)"/>
+  <text x="365" y="525" text-anchor="middle" font-size="10" fill="#3b82f6">postMessage selectColor</text>
+
+  <!-- WebView→Three.js -->
+  <line x1="460" y1="555" x2="640" y2="555" stroke="#8b5cf6" stroke-width="1.5"/>
+  <text x="550" y="550" text-anchor="middle" font-size="10" fill="#7c3aed">applyColor(#FF0000, FULL)</text>
+
+  <!-- Three.js apply -->
+  <rect x="580" y="570" width="140" height="25" rx="5" fill="#fef3c7" stroke="#f59e0b" stroke-width="1"/>
+  <text x="650" y="587" text-anchor="middle" font-size="11" fill="#b45309">修改材质颜色</text>
+
+  <!-- Response chain -->
+  <line x1="640" y1="615" x2="470" y2="615" stroke="#10b981" stroke-width="1.5" marker-end="url(#arrow-green)"/>
+  <text x="555" y="610" text-anchor="middle" font-size="10" fill="#10b981">colorApplied</text>
+
+  <line x1="450" y1="635" x2="280" y2="635" stroke="#10b981" stroke-width="1.5" marker-end="url(#arrow-green)"/>
+  <text x="365" y="630" text-anchor="middle" font-size="10" fill="#10b981">更新成功</text>
+
+  <line x1="270" y1="655" x2="100" y2="655" stroke="#10b981" stroke-width="2" marker-end="url(#arrow-green)"/>
+  <text x="185" y="650" text-anchor="middle" font-size="10" fill="#10b981">3D 模型变为红色</text>
+
+  <!-- Divider -->
+  <line x1="40" y1="685" x2="860" y2="685" stroke="#e2e8f0" stroke-width="1" stroke-dasharray="6,3"/>
+  <text x="450" y="700" text-anchor="middle" font-size="11" fill="#64748b" font-style="italic">报价阶段</text>
+
+  <!-- User→Taro: quote -->
+  <line x1="100" y1="720" x2="260" y2="720" stroke="#10b981" stroke-width="2" marker-end="url(#arrow-green)"/>
+  <text x="180" y="715" text-anchor="middle" font-size="10" fill="#10b981">生成报价单</text>
+
+  <!-- Taro→WebView: screenshot -->
+  <line x1="280" y1="745" x2="450" y2="745" stroke="#3b82f6" stroke-width="1.5"/>
+  <text x="365" y="740" text-anchor="middle" font-size="10" fill="#3b82f6">screenshot</text>
+
+  <!-- WebView→Three.js -->
+  <line x1="460" y1="765" x2="640" y2="765" stroke="#8b5cf6" stroke-width="1.5"/>
+  <text x="550" y="760" text-anchor="middle" font-size="10" fill="#7c3aed">toDataURL()</text>
+
+  <!-- Response screenshot -->
+  <line x1="640" y1="785" x2="470" y2="785" stroke="#10b981" stroke-width="1.5"/>
+  <line x1="450" y1="805" x2="280" y2="805" stroke="#10b981" stroke-width="1.5"/>
+  <text x="365" y="800" text-anchor="middle" font-size="10" fill="#10b981">截图数据返回</text>
+
+  <!-- Taro→API: save -->
+  <line x1="280" y1="830" x2="810" y2="830" stroke="#3b82f6" stroke-width="1.5" marker-end="url(#arrow-blue)"/>
+  <text x="545" y="825" text-anchor="middle" font-size="10" fill="#3b82f6">POST /configurations + POST /quotes</text>
+
+  <!-- Legend -->
+  <rect x="30" y="870" width="840" height="20" rx="4" fill="#f8fafc"/>
+  <line x1="50" y1="882" x2="100" y2="882" stroke="#3b82f6" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="108" y="886" font-size="10" fill="#64748b">请求/操作</text>
+  <line x1="200" y1="882" x2="250" y2="882" stroke="#10b981" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="258" y="886" font-size="10" fill="#64748b">响应/回调</text>
+  <line x1="350" y1="882" x2="400" y2="882" stroke="#8b5cf6" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <text x="408" y="886" font-size="10" fill="#64748b">WebView 内部通信</text>
+</svg>

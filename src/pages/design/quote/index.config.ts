@@ -1,0 +1,5 @@
+export default definePageConfig({
+  navigationBarTitleText: '生成报价单',
+  navigationBarBackgroundColor: '#FFFFFF',
+  navigationBarTextStyle: 'black',
+});

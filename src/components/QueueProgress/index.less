@@ -1,0 +1,90 @@
+.queue-progress {
+  padding: 32rpx;
+  background: #FFFFFF;
+  border-radius: 12rpx;
+  margin: 16rpx 32rpx;
+}
+
+.queue-progress-bar-wrap {
+  width: 100%;
+  height: 8rpx;
+  background: #F5F5F5;
+  border-radius: 4rpx;
+  overflow: hidden;
+}
+
+.queue-progress-bar {
+  height: 100%;
+  border-radius: 4rpx;
+  transition: width 500ms ease-out;
+}
+
+.queue-progress-bar.queued {
+  background: #FAAD14;
+}
+
+.queue-progress-bar.processing {
+  background: linear-gradient(90deg, #1890FF, #0F3460);
+}
+
+.queue-progress-bar.error {
+  background: #FF4D4F;
+}
+
+.queue-progress-bar.pulsating {
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
+
+.queue-progress-text {
+  font-size: 28rpx;
+  color: #1A1A2E;
+  margin-top: 16rpx;
+  display: block;
+  text-align: center;
+}
+
+.queue-progress-text.error {
+  color: #FF4D4F;
+}
+
+.queue-progress-wait {
+  font-size: 24rpx;
+  color: #8C8C8C;
+  margin-top: 8rpx;
+  display: block;
+  text-align: center;
+}
+
+.queue-progress-actions {
+  display: flex;
+  gap: 16rpx;
+  margin-top: 24rpx;
+  justify-content: center;
+}
+
+.queue-progress-btn {
+  height: 72rpx;
+  padding: 0 40rpx;
+  border-radius: 8rpx;
+  font-size: 28rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+}
+
+.queue-progress-btn.primary {
+  background: linear-gradient(135deg, #0F3460, #16213E);
+  color: #FFFFFF;
+}
+
+.queue-progress-btn.secondary {
+  background: #F5F5F5;
+  color: #595959;
+  border: 1px solid #E8E8E8;
+}

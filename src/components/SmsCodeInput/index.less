@@ -1,0 +1,127 @@
+.sms-code-input {
+  width: 100%;
+  position: relative;
+}
+
+.sms-code-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0;
+}
+
+.sms-hidden-input {
+  position: absolute;
+  left: -9999rpx;
+  top: -9999rpx;
+  width: 1rpx;
+  height: 1rpx;
+  opacity: 0;
+}
+
+.sms-code-boxes {
+  display: flex;
+  gap: 16rpx;
+}
+
+.sms-code-box {
+  width: 72rpx;
+  height: 88rpx;
+  border: 1px solid #E8E8E8;
+  border-radius: 8rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #FFFFFF;
+  transition: border-color 200ms, background 200ms;
+}
+
+.sms-code-box.active {
+  border: 2px solid #0F3460;
+  background: #F0F5FF;
+}
+
+.sms-code-box.filled {
+  border-color: #0F3460;
+}
+
+.sms-code-box.error {
+  border-color: #FF4D4F;
+  background: #FFF2F0;
+}
+
+.sms-code-digit {
+  font-size: 36rpx;
+  font-weight: bold;
+  color: #1A1A2E;
+}
+
+.sms-send-btn {
+  width: 180rpx;
+  height: 88rpx;
+  border-radius: 8rpx;
+  font-size: 28rpx;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: none;
+  transition: background 200ms;
+}
+
+.sms-send-btn.active {
+  background: #0F3460;
+  color: #FFFFFF;
+}
+
+.sms-send-btn.sending {
+  background: #8CABD8;
+  color: #FFFFFF;
+}
+
+.sms-send-btn.counting {
+  background: #E8E8E8;
+  color: #8C8C8C;
+}
+
+.sms-send-btn.disabled {
+  background: #F5F5F5;
+  color: #BFBFBF;
+}
+
+.sms-error-text {
+  font-size: 22rpx;
+  color: #FF4D4F;
+  margin-top: 8rpx;
+  display: block;
+  animation: slideDown 200ms ease-out;
+}
+
+.sms-verified {
+  display: flex;
+  align-items: center;
+  gap: 4rpx;
+  margin-top: 8rpx;
+}
+
+.sms-verified-icon {
+  font-size: 22rpx;
+  color: #52C41A;
+}
+
+.sms-verified-text {
+  font-size: 22rpx;
+  color: #52C41A;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-8rpx);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

@@ -1,0 +1,106 @@
+.ranking-page {
+  min-height: 100vh;
+  background: #FFFFFF;
+}
+
+.ranking-scroll {
+  height: calc(100vh - 160rpx);
+}
+
+.ranking-item {
+  display: flex;
+  align-items: center;
+  padding: 20rpx 32rpx;
+  border-bottom: 1px solid #F5F5F5;
+  gap: 16rpx;
+  transition: transform 150ms;
+}
+
+.ranking-item:active {
+  transform: scale(0.98);
+}
+
+.ranking-item-cover {
+  width: 120rpx;
+  height: 120rpx;
+  border-radius: 12rpx;
+  flex-shrink: 0;
+  background: #F5F5F5;
+}
+
+.ranking-item-info {
+  flex: 1;
+  overflow: hidden;
+}
+
+.ranking-item-title {
+  font-size: 28rpx;
+  font-weight: bold;
+  color: #1A1A2E;
+  max-width: 400rpx;
+}
+
+.ranking-item-summary {
+  font-size: 24rpx;
+  color: #595959;
+  margin-top: 8rpx;
+}
+
+.ranking-item-stats {
+  display: flex;
+  gap: 24rpx;
+  margin-top: 8rpx;
+  align-items: center;
+}
+
+.ranking-item-hot-current {
+  font-size: 26rpx;
+  font-weight: bold;
+  color: #0F3460;
+}
+
+.ranking-item-hot-other {
+  font-size: 24rpx;
+  color: #8C8C8C;
+}
+
+.ranking-item-change {
+  flex-shrink: 0;
+}
+
+.ranking-change-icon {
+  font-size: 20rpx;
+  font-weight: bold;
+}
+
+.ranking-change-icon.up {
+  color: #52C41A;
+}
+
+.ranking-change-icon.down {
+  color: #FF4D4F;
+}
+
+.ranking-change-icon.same {
+  color: #BFBFBF;
+}
+
+.ranking-change-icon.new {
+  color: #0F3460;
+}
+
+.ranking-load-more,
+.ranking-load-end {
+  padding: 24rpx 0;
+  text-align: center;
+}
+
+.ranking-load-more-text {
+  font-size: 24rpx;
+  color: #8C8C8C;
+}
+
+.ranking-load-end-text {
+  font-size: 24rpx;
+  color: #BFBFBF;
+}

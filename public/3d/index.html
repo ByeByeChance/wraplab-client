@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>WrapLab 3D Viewer</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { width: 100%; height: 100%; overflow: hidden; background: #0A0A1A; }
+    canvas { display: block; }
+    #loading-overlay {
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      background: #0A0A1A; z-index: 10;
+    }
+    #loading-text { color: #8C8C8C; font-size: 14px; font-family: -apple-system, sans-serif; margin-top: 16px; }
+    #progress-bar {
+      width: 200px; height: 4px; background: rgba(255,255,255,0.1); border-radius: 2px;
+      margin-top: 12px; overflow: hidden;
+    }
+    #progress-fill { height: 100%; width: 0%; background: #1A1A2E; border-radius: 2px; transition: width 0.3s; }
+    #watermark {
+      position: fixed; bottom: 12px; left: 16px; font-size: 12px;
+      color: rgba(255,255,255,0.4); font-family: -apple-system, sans-serif;
+      pointer-events: none; z-index: 5;
+    }
+    .hidden { display: none !important; }
+  </style>
+</head>
+<body>
+  <div id="loading-overlay">
+    <div id="loading-text">模型加载中 0%...</div>
+    <div id="progress-bar"><div id="progress-fill"></div></div>
+  </div>
+  <div id="watermark"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/examples/js/controls/OrbitControls.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/examples/js/loaders/GLTFLoader.js"></script>
+
+  <script>
+    (function() {
+      'use strict';
+
+      // ============================================================
+      // Message Types (sync with src/types/message.ts)
+      // ============================================================
+      var MSG = {
+        MODEL_URL: 'MODEL_URL',
+        SET_COLOR: 'SET_COLOR',
+        SET_MATERIAL: 'SET_MATERIAL',
+        RESET_VIEW: 'RESET_VIEW',
+        CAPTURE: 'CAPTURE',
+        PAUSE_RENDER: 'PAUSE_RENDER',
+        RESUME_RENDER: 'RESUME_RENDER',
+        PING: 'PING',
+        H5_READY: 'H5_READY',
+        MODEL_LOADING: 'MODEL_LOADING',
+        MODEL_READY: 'MODEL_READY',
+        MODEL_ERROR: 'MODEL_ERROR',
+        COLOR_APPLIED: 'COLOR_APPLIED',
+        CAPTURE_RESULT: 'CAPTURE_RESULT',
+        PONG: 'PONG'
+      };
+
+      // ============================================================
+      // Communication Bridge
+      // ============================================================
+      function postToTaro(type, payload) {
+        var msg = { type: type, payload: payload || {}, timestamp: Date.now() };
+        try {
+          // WeChat mini-program WebView
+          if (typeof wx !== 'undefined' && wx.miniProgram && wx.miniProgram.postMessage) {
+            wx.miniProgram.postMessage({ data: msg });
+          }
+        } catch (e) {
+          console.warn('[Bridge] postMessage failed:', e);
+        }
+      }
+
+      // ============================================================
+      // Three.js Scene Setup
+      // ============================================================
+      var scene, camera, renderer, controls, currentModel;
+      var defaultCameraPosition = { x: 3, y: 1.5, z: 4 };
+      var defaultCameraTarget = { x: 0, y: 0.5, z: 0 };
+      var animationId = null;
+      var isPaused = false;
+
+      function initScene() {
+        // Scene
+        scene = new THREE.Scene();
+        scene.background = new THREE.Color(0x0A0A1A);
+
+        // Camera
+        camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 100);
+        camera.position.set(defaultCameraPosition.x, defaultCameraPosition.y, defaultCameraPosition.z);
+        camera.lookAt(defaultCameraTarget.x, defaultCameraTarget.y, defaultCameraTarget.z);
+
+        // Renderer
+        renderer = new THREE.WebGLRenderer({ antialias: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+        renderer.outputColorSpace = THREE.SRGBColorSpace;
+        renderer.shadowMap.enabled = true;
+        renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+        document.body.appendChild(renderer.domElement);
+
+        // Controls
+        controls = new THREE.OrbitControls(camera, renderer.domElement);
+        controls.target.set(defaultCameraTarget.x, defaultCameraTarget.y, defaultCameraTarget.z);
+        controls.enableDamping = true;
+        controls.dampingFactor = 0.08;
+        controls.minDistance = 1.5;
+        controls.maxDistance = 8;
+        controls.maxPolarAngle = Math.PI / 2 + 0.3;
+        controls.update();
+
+        // Lights
+        var ambientLight = new THREE.AmbientLight(0xffffff, 1.5);
+        scene.add(ambientLight);
+
+        var dirLight1 = new THREE.DirectionalLight(0xffffff, 3);
+        dirLight1.position.set(5, 8, 5);
+        dirLight1.castShadow = true;
+        dirLight1.shadow.mapSize.width = 1024;
+        dirLight1.shadow.mapSize.height = 1024;
+        scene.add(dirLight1);
+
+        var dirLight2 = new THREE.DirectionalLight(0xffffff, 1.5);
+        dirLight2.position.set(-3, 2, -2);
+        scene.add(dirLight2);
+
+        // Ground grid
+        var gridHelper = new THREE.GridHelper(6, 20, 0x333333, 0x1a1a2e);
+        scene.add(gridHelper);
+
+        // Window resize
+        window.addEventListener('resize', function() {
+          camera.aspect = window.innerWidth / window.innerHeight;
+          camera.updateProjectionMatrix();
+          renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+
+        // Render loop
+        function animate() {
+          if (isPaused) {
+            animationId = requestAnimationFrame(animate);
+            return;
+          }
+          animationId = requestAnimationFrame(animate);
+          controls.update();
+          renderer.render(scene, camera);
+        }
+        animate();
+
+        // Report ready
+        postToTaro(MSG.H5_READY, { bridgeReady: true });
+      }
+
+      // ============================================================
+      // Model Loading
+      // ============================================================
+      function loadModel(url) {
+        if (!url) {
+          postToTaro(MSG.MODEL_ERROR, { error: '无效的模型 URL', code: 'INVALID_URL' });
+          return;
+        }
+
+        var loadingOverlay = document.getElementById('loading-overlay');
+        var loadingText = document.getElementById('loading-text');
+        var progressFill = document.getElementById('progress-fill');
+
+        var loader = new THREE.GLTFLoader();
+        loader.load(
+          url,
+          function(gltf) {
+            // Remove old model
+            if (currentModel) {
+              scene.remove(currentModel);
+            }
+
+            currentModel = gltf.scene;
+            currentModel.traverse(function(child) {
+              if (child.isMesh) {
+                child.castShadow = true;
+                child.receiveShadow = true;
+              }
+            });
+
+            // Center model
+            var box = new THREE.Box3().setFromObject(currentModel);
+            var center = box.getCenter(new THREE.Vector3());
+            currentModel.position.sub(center);
+            currentModel.position.y += box.getSize(new THREE.Vector3()).y / 2;
+
+            scene.add(currentModel);
+
+            // Hide loading overlay
+            loadingOverlay.classList.add('hidden');
+
+            // Update watermark
+            document.getElementById('watermark').textContent = 'WrapLab 3D Viewer';
+
+            postToTaro(MSG.MODEL_LOADING, { progress: 100 });
+            setTimeout(function() {
+              postToTaro(MSG.MODEL_READY, {});
+            }, 100);
+          },
+          function(xhr) {
+            if (xhr.total > 0) {
+              var progress = Math.round((xhr.loaded / xhr.total) * 100);
+              loadingText.textContent = '模型加载中 ' + progress + '%...';
+              progressFill.style.width = progress + '%';
+              postToTaro(MSG.MODEL_LOADING, { progress: progress });
+            }
+          },
+          function(error) {
+            loadingOverlay.classList.add('hidden');
+            postToTaro(MSG.MODEL_ERROR, {
+              error: error.message || '模型加载失败',
+              code: 'LOAD_ERROR'
+            });
+          }
+        );
+      }
+
+      // ============================================================
+      // Color & Material Application
+      // ============================================================
+      function setBodyColor(hexColor) {
+        if (!currentModel) return;
+
+        var color = new THREE.Color(hexColor);
+        currentModel.traverse(function(child) {
+          if (child.isMesh && child.material) {
+            // Handle both single material and material array
+            var materials = Array.isArray(child.material) ? child.material : [child.material];
+            materials.forEach(function(mat) {
+              if (mat.color) {
+                // Smooth transition
+                var startColor = mat.color.clone();
+                var startTime = Date.now();
+                var duration = 300;
+
+                function animateColor() {
+                  var elapsed = Date.now() - startTime;
+                  var t = Math.min(elapsed / duration, 1);
+                  // ease-out
+                  t = 1 - Math.pow(1 - t, 3);
+                  mat.color.lerpColors(startColor, color, t);
+
+                  if (t < 1) {
+                    requestAnimationFrame(animateColor);
+                  } else {
+                    postToTaro(MSG.COLOR_APPLIED, {});
+                  }
+                }
+                animateColor();
+              }
+            });
+          }
+        });
+      }
+
+      function setMaterialType(materialType) {
+        if (!currentModel) return;
+
+        var roughnessValue = 0.3;
+        var metalnessValue = 0.1;
+
+        switch (materialType) {
+          case 'glossy':
+            roughnessValue = 0.2;
+            metalnessValue = 0.1;
+            break;
+          case 'matte':
+            roughnessValue = 0.8;
+            metalnessValue = 0.05;
+            break;
+          case 'satin':
+            roughnessValue = 0.5;
+            metalnessValue = 0.1;
+            break;
+          default:
+            roughnessValue = 0.3;
+            metalnessValue = 0.1;
+        }
+
+        currentModel.traverse(function(child) {
+          if (child.isMesh && child.material) {
+            var materials = Array.isArray(child.material) ? child.material : [child.material];
+            materials.forEach(function(mat) {
+              if (mat.roughness !== undefined) mat.roughness = roughnessValue;
+              if (mat.metalness !== undefined) mat.metalness = metalnessValue;
+            });
+            child.material.needsUpdate = true;
+          }
+        });
+      }
+
+      // ============================================================
+      // Message Handler
+      // ============================================================
+      function handleMessage(msg) {
+        if (!msg || !msg.type) return;
+
+        switch (msg.type) {
+          case MSG.MODEL_URL:
+            if (msg.payload && msg.payload.url) {
+              loadModel(msg.payload.url);
+            }
+            break;
+          case MSG.SET_COLOR:
+            if (msg.payload && msg.payload.hex) {
+              setBodyColor(msg.payload.hex);
+            }
+            break;
+          case MSG.SET_MATERIAL:
+            if (msg.payload && msg.payload.material) {
+              setMaterialType(msg.payload.material);
+            }
+            break;
+          case MSG.RESET_VIEW:
+            camera.position.set(defaultCameraPosition.x, defaultCameraPosition.y, defaultCameraPosition.z);
+            controls.target.set(defaultCameraTarget.x, defaultCameraTarget.y, defaultCameraTarget.z);
+            controls.update();
+            break;
+          case MSG.CAPTURE:
+            renderer.render(scene, camera);
+            var dataURL = renderer.domElement.toDataURL('image/png');
+            postToTaro(MSG.CAPTURE_RESULT, { image: dataURL });
+            break;
+          case MSG.PAUSE_RENDER:
+            isPaused = true;
+            break;
+          case MSG.RESUME_RENDER:
+            isPaused = false;
+            break;
+          case MSG.PING:
+            postToTaro(MSG.PONG, {});
+            break;
+          default:
+            break;
+        }
+      }
+
+      // Listen for messages from Taro (WeChat mini-program WebView)
+      // In WeChat mini-program, the host page sends messages via wx.miniProgram.postMessage
+      // which are queued and delivered on specific triggers
+      // For real-time communication, we also check periodically
+      document.addEventListener('message', function(e) {
+        // Standard postMessage from parent window
+      });
+
+      // Listen for Taro → H5 commands via URL hash bridge
+      // Hash changes do NOT trigger WebView reload — only hashchange fires
+      window.addEventListener('hashchange', function() {
+        var raw = window.location.hash;
+        if (raw.startsWith('#msg=')) {
+          try {
+            var json = decodeURIComponent(raw.slice(5));
+            var messages = JSON.parse(json);
+            if (Array.isArray(messages)) {
+              messages.forEach(handleMessage);
+            } else {
+              handleMessage(messages);
+            }
+          } catch (e) {
+            console.warn('[Bridge] Failed to parse hash message:', e);
+          }
+          // Clean hash so same message is not re-processed
+          if (history.replaceState) {
+            history.replaceState(null, '', window.location.pathname + window.location.search);
+          }
+        }
+      });
+
+      // ============================================================
+      // Bootstrap
+      // ============================================================
+      initScene();
+
+      // Process any messages already in the URL hash (hashchange
+      // only fires on subsequent changes, not on initial load)
+      function processInitialHash() {
+        var raw = window.location.hash;
+        if (raw && raw.startsWith('#msg=')) {
+          try {
+            var json = decodeURIComponent(raw.slice(5));
+            var messages = JSON.parse(json);
+            if (Array.isArray(messages)) {
+              messages.forEach(handleMessage);
+            } else {
+              handleMessage(messages);
+            }
+          } catch (e) {
+            console.warn('[Bridge] Failed to parse initial hash:', e);
+          }
+          if (history.replaceState) {
+            history.replaceState(null, '', window.location.pathname + window.location.search);
+          }
+        }
+      }
+      processInitialHash();
+
+      // Expose handleMessage for external calls
+      window.handle3DMessage = handleMessage;
+
+      console.log('[WrapLab 3D Viewer] Initialized');
+    })();
+  </script>
+</body>
+</html>

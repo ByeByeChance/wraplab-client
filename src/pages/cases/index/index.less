@@ -1,0 +1,126 @@
+/* Tab bar */
+.cases-tab-row {
+  display: flex;
+  position: relative;
+  height: 80rpx;
+  background: #FFFFFF;
+}
+
+.cases-tab-item {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cases-tab-text {
+  font-size: 28rpx;
+  color: #8C8C8C;
+}
+
+.cases-tab-item.active .cases-tab-text {
+  font-weight: bold;
+  color: #1A1A2E;
+}
+
+.cases-tab-indicator {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 50%;
+  height: 4rpx;
+  background: #0F3460;
+  transition: left 300ms ease-out;
+}
+
+.cases-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16rpx;
+  padding: 16rpx 32rpx;
+}
+
+.case-card {
+  border-radius: 12rpx;
+  overflow: hidden;
+  background: #FFFFFF;
+  box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.05);
+  transition: transform 100ms ease, box-shadow 100ms ease;
+}
+
+.case-card:active {
+  transform: translateY(-2rpx);
+  box-shadow: 0 4rpx 16rpx rgba(0, 0, 0, 0.1);
+}
+
+.case-card-image-wrap {
+  width: 100%;
+  height: 220rpx;
+  overflow: hidden;
+}
+
+.case-card-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.case-card-image-placeholder {
+  width: 100%;
+  height: 100%;
+  background: #F5F5F5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.case-card-image-placeholder-text {
+  font-size: 24rpx;
+  color: #BFBFBF;
+}
+
+.case-card-info {
+  padding: 16rpx;
+}
+
+.case-card-name {
+  font-size: 26rpx;
+  font-weight: 500;
+  color: #1A1A2E;
+  display: block;
+  margin-bottom: 4rpx;
+}
+
+.case-card-color {
+  font-size: 24rpx;
+  color: #595959;
+  display: block;
+  margin-bottom: 4rpx;
+}
+
+.case-card-likes {
+  font-size: 22rpx;
+  color: #8C8C8C;
+}
+
+/* 底部加载状态 */
+.cases-load-more {
+  padding: 32rpx 0;
+  display: flex;
+  justify-content: center;
+}
+
+.cases-load-more-text {
+  font-size: 24rpx;
+  color: #8C8C8C;
+}
+
+.cases-load-more-error {
+  font-size: 24rpx;
+  color: #0F3460;
+}
+
+.cases-load-more-end {
+  font-size: 24rpx;
+  color: #BFBFBF;
+}

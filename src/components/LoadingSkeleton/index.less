@@ -1,0 +1,108 @@
+.skeleton-container {
+  width: 100%;
+}
+
+.skeleton-shimmer {
+  background: linear-gradient(90deg, #F0F0F0 25%, #E8E8E8 50%, #F0F0F0 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 8rpx;
+}
+
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+.skeleton-line {
+  height: 24rpx;
+  width: 100%;
+  margin-bottom: 12rpx;
+}
+
+/* Brand Grid */
+.skeleton-brand-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 16rpx;
+}
+.skeleton-brand-logo {
+  width: 100rpx;
+  height: 100rpx;
+  border-radius: 16rpx;
+  margin-bottom: 8rpx;
+}
+.skeleton-brand-name {
+  width: 80rpx;
+  height: 20rpx;
+  border-radius: 4rpx;
+}
+
+/* Scheme Card */
+.skeleton-card {
+  width: 280rpx;
+  border-radius: 12rpx;
+  overflow: hidden;
+  background: #fff;
+  margin-right: 16rpx;
+  flex-shrink: 0;
+}
+.skeleton-card-image {
+  width: 280rpx;
+  height: 180rpx;
+}
+.skeleton-card-body {
+  padding: 12rpx 16rpx;
+}
+
+/* Swatch Grid */
+.skeleton-swatch-item {
+  padding: 8rpx;
+}
+.skeleton-swatch-block {
+  width: 64rpx;
+  height: 64rpx;
+  border-radius: 16rpx;
+}
+
+/* Case Card */
+.skeleton-case-card {
+  border-radius: 12rpx;
+  overflow: hidden;
+  background: #fff;
+}
+.skeleton-case-image {
+  width: 100%;
+  height: 220rpx;
+}
+.skeleton-case-body {
+  padding: 16rpx;
+}
+
+/* List Item */
+.skeleton-list-item {
+  display: flex;
+  align-items: center;
+  height: 112rpx;
+  padding: 0 32rpx;
+}
+.skeleton-circle {
+  width: 64rpx;
+  height: 64rpx;
+  border-radius: 50%;
+  margin-right: 16rpx;
+  flex-shrink: 0;
+}
+.skeleton-list-body {
+  flex: 1;
+}
+
+/* Profile */
+.skeleton-profile-card {
+  height: 160rpx;
+  border-radius: 16rpx;
+  padding: 32rpx;
+  display: flex;
+  align-items: center;
+}

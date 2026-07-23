@@ -1,0 +1,153 @@
+.date-range-bar {
+  display: flex;
+  flex-direction: row;
+  height: 72rpx;
+  background-color: #FFFFFF;
+  border-bottom: 1px solid #F0F0F0;
+}
+
+.date-range-tab {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.date-range-tab-text {
+  font-size: 26rpx;
+  color: #8C8C8C;
+  font-weight: 400;
+}
+
+.date-range-tab-text-active {
+  font-size: 26rpx;
+  color: #0F3460;
+  font-weight: 700;
+}
+
+.date-range-tab-indicator {
+  position: absolute;
+  bottom: 0;
+  width: 40rpx;
+  height: 3px;
+  background-color: #0F3460;
+  border-radius: 2rpx;
+}
+
+/* Custom date range panel */
+.date-range-panel-wrapper {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+}
+
+.date-range-panel-mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+.date-range-panel {
+  background-color: #FFFFFF;
+  border-radius: 24rpx 24rpx 0 0;
+  padding: 24rpx 32rpx;
+  position: relative;
+}
+
+.date-range-panel-handle-bar {
+  width: 36px;
+  height: 5px;
+  background-color: #D9D9D9;
+  border-radius: 3rpx;
+  align-self: center;
+  margin: 0 auto 16rpx;
+}
+
+.date-range-panel-title {
+  font-size: 28rpx;
+  font-weight: 700;
+  color: #1A1A2E;
+  text-align: center;
+  display: block;
+  margin-bottom: 24rpx;
+}
+
+.date-range-picker-row {
+  display: flex;
+  flex-direction: row;
+  gap: 16rpx;
+  margin-bottom: 24rpx;
+}
+
+.date-range-picker-item {
+  flex: 1;
+}
+
+.date-range-picker-label {
+  font-size: 24rpx;
+  color: #8C8C8C;
+  margin-bottom: 8rpx;
+  display: block;
+}
+
+.date-range-picker-value {
+  height: 80rpx;
+  border: 1px solid #E8E8E8;
+  border-radius: 12rpx;
+  display: flex;
+  align-items: center;
+  padding: 0 16rpx;
+}
+
+.date-range-picker-value-text {
+  font-size: 28rpx;
+  color: #1A1A2E;
+}
+
+.date-range-picker-placeholder {
+  font-size: 28rpx;
+  color: #BFBFBF;
+}
+
+.date-range-confirm-row {
+  display: flex;
+  flex-direction: row;
+  gap: 16rpx;
+}
+
+.date-range-confirm-cancel {
+  flex: 1;
+  height: 88rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #F5F5F5;
+  border-radius: 8rpx;
+}
+
+.date-range-confirm-cancel-text {
+  font-size: 28rpx;
+  color: #595959;
+}
+
+.date-range-confirm-ok {
+  flex: 1;
+  height: 88rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #1A1A2E, #0F3460);
+  border-radius: 8rpx;
+}
+
+.date-range-confirm-ok-text {
+  font-size: 28rpx;
+  color: #FFFFFF;
+}

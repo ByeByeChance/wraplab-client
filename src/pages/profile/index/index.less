@@ -1,0 +1,205 @@
+.profile-content {
+  padding: 24rpx 32rpx;
+}
+
+/* 用户信息卡片 */
+.profile-user-card {
+  display: flex;
+  align-items: center;
+  padding: 32rpx;
+  background: linear-gradient(135deg, #1A1A2E 0%, #0F3460 100%);
+  border-radius: 16rpx;
+  margin-bottom: 24rpx;
+}
+
+.profile-user-avatar {
+  width: 64rpx;
+  height: 64rpx;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.15);
+  border: 2rpx solid rgba(255, 255, 255, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 16rpx;
+  flex-shrink: 0;
+}
+
+.profile-user-avatar-text {
+  font-size: 28rpx;
+  color: #FFFFFF;
+  font-weight: 700;
+}
+
+.profile-user-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.profile-user-name {
+  font-size: 32rpx;
+  font-weight: 700;
+  color: #FFFFFF;
+  display: block;
+}
+
+.profile-user-store {
+  font-size: 24rpx;
+  color: rgba(255, 255, 255, 0.7);
+  margin-top: 4rpx;
+  display: block;
+}
+
+/* 功能列表 */
+.profile-menu {
+  background: #FFFFFF;
+  border-radius: 12rpx;
+  overflow: hidden;
+}
+
+.profile-menu-item {
+  display: flex;
+  align-items: center;
+  height: 100rpx;
+  padding: 0 32rpx;
+  border-bottom: 1px solid #F0F0F0;
+  transition: background 200ms ease;
+}
+
+.profile-menu-item:last-child {
+  border-bottom: none;
+}
+
+.profile-menu-item:active {
+  background: #F5F5F5;
+}
+
+.profile-menu-icon {
+  font-size: 36rpx;
+  width: 44rpx;
+  text-align: center;
+  margin-right: 16rpx;
+  flex-shrink: 0;
+}
+
+.profile-menu-text {
+  flex: 1;
+  font-size: 28rpx;
+  color: #1A1A2E;
+}
+
+.profile-menu-arrow {
+  font-size: 20rpx;
+  color: #BFBFBF;
+  flex-shrink: 0;
+}
+
+/* 历史方案展开区域 */
+.profile-history-panel {
+  background: #FAFAFA;
+  animation: slide-down 300ms ease;
+}
+
+@keyframes slide-down {
+  from {
+    max-height: 0;
+    opacity: 0;
+  }
+  to {
+    max-height: 2000rpx;
+    opacity: 1;
+  }
+}
+
+.profile-load-more-text {
+  font-size: 24rpx;
+  color: #8C8C8C;
+  text-align: center;
+  display: block;
+  padding: 16rpx 0;
+}
+
+.profile-load-more-end {
+  font-size: 24rpx;
+  color: #BFBFBF;
+  text-align: center;
+  display: block;
+  padding: 16rpx 0;
+}
+
+/* 退出登录 */
+.profile-logout {
+  margin-top: 48rpx;
+  padding-bottom: calc(32rpx + env(safe-area-inset-bottom));
+}
+
+.profile-logout-btn {
+  width: 100%;
+  height: 88rpx;
+  background: transparent;
+  border: none;
+  font-size: 28rpx;
+  font-weight: 500;
+  color: #FF4D4F;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 确认弹窗 */
+.profile-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.45);
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.profile-modal {
+  width: 560rpx;
+  background: #FFFFFF;
+  border-radius: 16rpx;
+  padding: 48rpx 32rpx 32rpx;
+}
+
+.profile-modal-title {
+  font-size: 28rpx;
+  font-weight: 700;
+  color: #1A1A2E;
+  text-align: center;
+  display: block;
+  margin-bottom: 32rpx;
+}
+
+.profile-modal-actions {
+  display: flex;
+  gap: 16rpx;
+}
+
+.profile-modal-btn {
+  flex: 1;
+  height: 80rpx;
+  border-radius: 12rpx;
+  font-size: 28rpx;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+}
+
+.profile-modal-btn--cancel {
+  background: transparent;
+  border: 2rpx solid #0F3460;
+  color: #0F3460;
+}
+
+.profile-modal-btn--confirm {
+  background: #FF4D4F;
+  color: #FFFFFF;
+}

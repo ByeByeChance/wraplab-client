@@ -1,0 +1,189 @@
+/* ============================================
+   WrapLab 全局样式
+   ============================================ */
+
+/* 设计 Token */
+:root {
+  --color-primary: #1A1A2E;
+  --color-primary-light: #0F3460;
+  --color-accent: #E94560;
+  --color-bg: #F5F5F5;
+  --color-bg-dark: #16213E;
+  --color-bg-white: #FFFFFF;
+  --color-text-primary: #1A1A2E;
+  --color-text-secondary: #595959;
+  --color-text-tertiary: #8C8C8C;
+  --color-text-quaternary: #BFBFBF;
+  --color-border: #E8E8E8;
+  --color-success: #52C41A;
+  --color-warning: #FAAD14;
+  --color-error: #FF4D4F;
+  --color-info: #1890FF;
+  --color-disabled: #D9D9D9;
+}
+
+/* Reset */
+page {
+  font-family: -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Helvetica Neue', sans-serif;
+  font-size: 28rpx;
+  color: #1A1A2E;
+  background: #F5F5F5;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+view, text, image, scroll-view, swiper, swiper-item, input, button, textarea {
+  box-sizing: border-box;
+}
+
+/* 通用容器 */
+.page-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: #F5F5F5;
+}
+
+.page-scroll {
+  flex: 1;
+  overflow-y: auto;
+}
+
+.page-content {
+  padding: 0 32rpx;
+}
+
+/* 通用分割线 */
+.divider {
+  height: 1px;
+  background: #E8E8E8;
+  margin: 0 32rpx;
+}
+
+/* 通用卡片 */
+.card {
+  background: #FFFFFF;
+  border-radius: 12rpx;
+  box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+}
+
+/* 骨架屏动画 */
+.skeleton-shimmer {
+  background: linear-gradient(90deg, #F0F0F0 25%, #E8E8E8 50%, #F0F0F0 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* 渐变主按钮 */
+.btn-primary {
+  background: linear-gradient(135deg, #1A1A2E, #0F3460);
+  color: #FFFFFF;
+  font-size: 28rpx;
+  font-weight: 500;
+  border-radius: 16rpx;
+  border: none;
+  height: 96rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  box-shadow: 0 4rpx 16rpx rgba(0, 0, 0, 0.1);
+}
+
+.btn-primary:active {
+  opacity: 0.85;
+  transform: scale(0.98);
+}
+
+.btn-primary--disabled {
+  opacity: 0.4;
+}
+
+/* 次要按钮 */
+.btn-secondary {
+  background: transparent;
+  border: 2rpx solid #0F3460;
+  color: #0F3460;
+  font-size: 28rpx;
+  font-weight: 500;
+  border-radius: 16rpx;
+  height: 88rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+/* 面包屑导航 */
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  padding: 16rpx 32rpx;
+  background: #F5F5F5;
+  height: 72rpx;
+  gap: 8rpx;
+}
+
+.breadcrumb-item {
+  font-size: 24rpx;
+  color: #0F3460;
+}
+
+.breadcrumb-item--active {
+  color: #1A1A2E;
+  font-weight: 700;
+}
+
+.breadcrumb-separator {
+  font-size: 24rpx;
+  color: #BFBFBF;
+  margin: 0 4rpx;
+}
+
+/* 年份标签栏 */
+.year-filter-tags {
+  display: flex;
+  padding: 0 32rpx;
+  height: 80rpx;
+  align-items: center;
+  background: #FFFFFF;
+  border-bottom: 1px solid #F0F0F0;
+  overflow-x: auto;
+  white-space: nowrap;
+}
+
+.year-filter-tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 8rpx 24rpx;
+  border-radius: 32rpx;
+  background: #F5F5F5;
+  font-size: 24rpx;
+  color: #595959;
+  margin-right: 16rpx;
+  flex-shrink: 0;
+  transition: all 100ms ease;
+}
+
+.year-filter-tag--active {
+  background: #1A1A2E;
+  color: #FFFFFF;
+  font-weight: 700;
+}
+
+.year-filter-tag:active {
+  transform: scale(0.95);
+}
+
+/* Utility: text truncate */
+.text-ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

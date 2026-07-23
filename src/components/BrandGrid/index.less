@@ -1,0 +1,33 @@
+.brand-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24rpx;
+  padding: 16rpx 0;
+}
+
+.brand-grid-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 16rpx;
+  transition: opacity 100ms ease;
+}
+
+.brand-grid-item:active {
+  opacity: 0.85;
+  transform: scale(0.98);
+}
+
+.brand-grid-logo {
+  width: 100rpx;
+  height: 100rpx;
+  border-radius: 16rpx;
+  background: #F5F5F5;
+}
+
+.brand-grid-name {
+  font-size: 24rpx;
+  color: #595959;
+  margin-top: 8rpx;
+  text-align: center;
+}
